@@ -1,0 +1,9 @@
+venv
+*.sqlite3
+.vscode
+*pyc
+.env
+bin/
+include/
+lib/
+share/
