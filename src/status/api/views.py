@@ -42,7 +42,7 @@ class StatusAPIView(
         generics.ListAPIView):
     
     permission_classes = []
-    authentication_classes = [SessionAuthentication]
+    # authentication_classes = [SessionAuthentication]
     serializer_class = StatusSerializer
     passed_id = None
     
