@@ -14,6 +14,9 @@ class UserDetailAPIView(generics.RetrieveAPIView):
     serializer_class    = UserDetailSerializer
     lookup_field        = 'username'
     
+    def get_serializer_context(self):
+        return {'request': self.request}
+    
 
 class UserStatusAPIView(generics.ListAPIView):
     serializer_class    = StatusInlineUserSerializer

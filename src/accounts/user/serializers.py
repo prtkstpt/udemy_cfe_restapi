@@ -21,6 +21,10 @@ class UserDetailSerializer(serializers.ModelSerializer):
         return "api/users/{username}/".format(username=obj.username)
     
     def get_status(self, obj):
+        request = self.context.get('request')
+        limit = 10
+        
+        
         qs = obj.status_set.all().order_by("-timestamp" )
         data = {
             'uri': self.get_uri(obj) + "status/",
