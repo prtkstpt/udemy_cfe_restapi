@@ -19,11 +19,6 @@ from updates.views import (json_example_view, JsonCBV,
                            JsonCBV2, SerializedListView,
                            SerializedDetailView)
 
-from rest_framework_jwt.views import (
-        obtain_jwt_token,
-        refresh_jwt_token
-        )
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('accounts.api.urls')),

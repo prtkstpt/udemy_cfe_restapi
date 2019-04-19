@@ -23,13 +23,18 @@ class UserDetailSerializer(serializers.ModelSerializer):
     def get_status(self, obj):
         request = self.context.get('request')
         limit = 10
-        
-        
+        if request:
+            limit_query = request.GET.get('limit')
+            try:
+                limit = int(limit_query)
+            except:
+                pass
+            
         qs = obj.status_set.all().order_by("-timestamp" )
         data = {
             'uri': self.get_uri(obj) + "status/",
             'last': StatusInlineUserSerializer(qs.first()).data,
-            'recent': StatusInlineUserSerializer(qs[:10], many=True).data
+            'recent': StatusInlineUserSerializer(qs[:limit], many=True).data
         }
         return data
         

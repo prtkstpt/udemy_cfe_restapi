@@ -1,10 +1,13 @@
 from django.contrib.auth import get_user_model
-from rest_framework import generics, permissions
+from rest_framework import (generics,
+                            permissions,
+                            pagination)
 
 from .serializers import UserDetailSerializer
 
-from status.models import Status
 from status.api.serializers import StatusInlineUserSerializer
+from status.api.views import StatusAPIView
+from status.models import Status
 
 User = get_user_model()
 
@@ -18,12 +21,11 @@ class UserDetailAPIView(generics.RetrieveAPIView):
         return {'request': self.request}
     
 
-class UserStatusAPIView(generics.ListAPIView):
+class UserStatusAPIView(StatusAPIView):
     serializer_class    = StatusInlineUserSerializer
     
     def get_queryset(self, *args, **kwargs):
         username = self.kwargs.get("username", None)
-        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..", username)
         if username is None:
             return Status.objects.none()
         
